@@ -2,22 +2,22 @@ import {listPairs3} from '../constants'
 
 export type FuturePair = {
   stream: string;
-  E: number;
+  eventTime: number;
   pair: string;
-  price: number;
-  price2: number;
-  r: string;
-  T: string;
+  markPrice: number;
+  settlePrice: number;
+  fundingRate: string;
+  fundingTime: string;
 };
 
 export const emptyFuturePair: FuturePair = {
   stream: "To define",
-  E: 0,
+  eventTime: 0,
   pair: "To define",
-  price: 0,
-  price2: 0,
-  r: "To define",
-  T: "To define"
+  markPrice: 0,
+  settlePrice: 0,
+  fundingRate: "To define",
+  fundingTime: "To define"
 };
 
 export type FuturePairFull = {
@@ -29,12 +29,12 @@ export const emptyFuturePairFull: FuturePairFull = {
   pair: "To define",
   data: {
     stream: "To define",
-    E: 0,
+    eventTime: 0,
     pair: "To define",
-    price: 0,
-    price2: 0,
-    r: "To define",
-    T: "To define"
+    markPrice: 0,
+    settlePrice: 0,
+    fundingRate: "To define",
+    fundingTime: "To define"
   }
 };
 
@@ -43,12 +43,12 @@ export const futurePairsFull: FuturePairFull[] = listPairs3.map((p) => {
     pair: p,
     data: {
       stream: "To define",
-      E: 0,
+      eventTime: 0,
       pair: "To define",
-      price: 0,
-      price2: 0,
-      r: "To define",
-      T: "To define"
+      markPrice: 0,
+      settlePrice: 0,
+      fundingRate: "To define",
+      fundingTime: "To define"
     }
   };
 });

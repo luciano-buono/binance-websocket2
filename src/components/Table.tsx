@@ -50,12 +50,12 @@ type Props = {
 
 const columns: Array<Column<FuturePair>> = [
   { title: "stream", field: "stream" },
-  { title: "E", field: "E" },
+  { title: "eventTime", field: "eventTime" },
   { title: "pair", field: "pair" },
-  { title: "price", field: "price" },
-  { title: "price2", field: "price2" },
-  { title: "r", field: "r" },
-  { title: "T", field: "T" }
+  { title: "markPrice", field: "markPrice" },
+  { title: "settlePrice", field: "settlePrice" },
+  { title: "fundingRate", field: "fundingRate" },
+  { title: "fundingTime", field: "fundingTime" }
 ];
 
 const options = {
