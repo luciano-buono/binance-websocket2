@@ -7,12 +7,17 @@ import React, {
 } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import {
+  DeliveryPerpetualPair,
+  FuturePair2,
   FuturePairFull,
+  futurePairs2,
   futurePairsFull
 } from "./types";
 import { TableFaker } from "./Table";
-import { objectToFuturePair } from "./utils";
+import { objectToFuturePair, objectToFuturePair2 } from "./utils";
 import { listPairs, WEBSOCKET_URL_COINM} from "../constants";
+import { TableFaker2 } from "./Table2";
+import moment from "moment";
 
 export default function App() {
   const socketUrl = WEBSOCKET_URL_COINM;
@@ -23,9 +28,19 @@ export default function App() {
   const [streamList, setStreamList] = useState<FuturePairFull[]>(
     futurePairsFull
   );
+  const [streamList2, setStreamList2] = useState<DeliveryPerpetualPair[]>(
+    futurePairs2
+  );
 
   useEffect(() => {
     const lastFuturePair = objectToFuturePair(lastJsonMessage);
+    const lastFuturePair2 = objectToFuturePair2(lastJsonMessage);
+
+    var now = moment(new Date()); //todays date
+    var end = moment(lastFuturePair2.type, "YYMMDD"); // another date
+    var duration = moment.duration(end.diff(now));
+    var days = duration.asDays();
+
     setStreamList(
       streamList.map((s) =>
         s.pair === lastFuturePair?.pair
@@ -33,7 +48,29 @@ export default function App() {
           : s
       )
     );
-  }, [lastJsonMessage]);
+      setStreamList2(
+        streamList2.map((s) =>
+          s.pair === lastFuturePair2?.pair ?
+            lastFuturePair2.type === "PERP" ?
+              {...s,
+                pair: lastFuturePair2.pair,
+                markPricePerpetual: lastFuturePair2.markPrice,
+                fundingRate: lastFuturePair2.fundingRate,
+                fundingTime: lastFuturePair2.fundingTime,
+              }
+            : {...s,
+              pair: lastFuturePair2.pair,
+              type: lastFuturePair2.type,
+              markPriceDelivery: lastFuturePair2.markPrice,
+              daysLeft: days,
+              dailyRevenue: ((s.markPriceDelivery/s.markPricePerpetual)-1)*100 ,
+              yearlyRevenue: 0,
+            }
+          : s
+        )
+      )
+  },[lastJsonMessage]);
+    
 
   const handleClickMessage = useCallback(() => {
     sendJsonMessage({
@@ -60,8 +97,8 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <TableFaker data={streamList.map((s) => s.data)} />
+      {/* <TableFaker data={streamList.map((s) => s.data)} /> */}
+      <TableFaker2 data={streamList2.map((s) => s)} />
       <br />
       <button
         style={{ color: "royalblue", backgroundColor: "cyan" }}

@@ -25,5 +25,12 @@ export const listPairs3: string[] = [
     "LTCUSD_220325",
     "LTCUSD_PERP",
   ];
+  export const listPairs4: string[] = [
+    "ETHUSD_PERP_220325",
+    "BTCUSD_PERP_220325",
+    "ADAUSD_PERP_220325",
+    "BNBUSD_PERP_220325",
+    "LTCUSD_PERP_220325",
+  ];
 export const WEBSOCKET_URL_SPOT = "wss://stream.binance.com:9443/stream";
 export const WEBSOCKET_URL_COINM = "wss://dstream.binance.com/ws/ethusd_220325";
