@@ -109,6 +109,8 @@ export type DeliveryPerpetualPair = {
         daysLeft: number;
         dailyRevenue: number;
         yearlyRevenue: number;
+        intradiary: number;
+
 }
 export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
     return{
@@ -121,5 +123,6 @@ export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
         daysLeft: 0,
         dailyRevenue: 0,
         yearlyRevenue: 0,
+        intradiary: 0,
     };
 });

@@ -50,7 +50,7 @@ type Props = {
 
 const columns: Array<Column<DeliveryPerpetualPair>> = [
   { title: "type", field: "type" },
-  { title: "markPriceDelivery", field: "markPriceDelivery" },
+  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric" },
   { title: "pair", field: "pair" },
   { title: "markPricePerpetual", field: "markPricePerpetual" },
   { title: "daysLeft", field: "daysLeft" },
@@ -58,7 +58,7 @@ const columns: Array<Column<DeliveryPerpetualPair>> = [
   { title: "fundingTime", field: "fundingTime" },
   { title: "dailyRevenue", field: "dailyRevenue" },
   { title: "yearlyRevenue", field: "yearlyRevenue" },
-
+  { title: "intradiary", field: "intradiary" },
 ];
 
 const options = {

@@ -14,7 +14,7 @@ import {
   futurePairsFull
 } from "./types";
 import { TableFaker } from "./Table";
-import { objectToFuturePair, objectToFuturePair2 } from "./utils";
+import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue } from "./utils";
 import { listPairs, WEBSOCKET_URL_COINM} from "../constants";
 import { TableFaker2 } from "./Table2";
 import moment from "moment";
@@ -63,8 +63,9 @@ export default function App() {
               type: lastFuturePair2.type,
               markPriceDelivery: lastFuturePair2.markPrice,
               daysLeft: days,
-              dailyRevenue: ((s.markPriceDelivery/s.markPricePerpetual)-1)*100 ,
-              yearlyRevenue: 0,
+              dailyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual) ,
+              yearlyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)*365/days ,
+              intradiary: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)/(days*3),
             }
           : s
         )
@@ -101,14 +102,14 @@ export default function App() {
       <TableFaker2 data={streamList2.map((s) => s)} />
       <br />
       <button
-        style={{ color: "royalblue", backgroundColor: "cyan" }}
+        style={{backgroundColor: "cyan" }}
         onClick={handleClickMessage}
         disabled={readyState !== ReadyState.OPEN}
       >
         Subscribe
       </button>
       <button
-        style={{ color: "red", backgroundColor: "orange" }}
+        style={{backgroundColor: "orange" }}
         onClick={handleClickUnSendMessage}
         disabled={readyState !== ReadyState.OPEN}
       >

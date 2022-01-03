@@ -46,12 +46,7 @@ export const objectToFuturePair2 = (websocketObj: any): FuturePair2 => {
     fundingTime: websocketObj.T// next funding time for perpetual symbol, 0 will be shown for delivery symbol
   };
 };
-// pair: string;
-// type: string;
-// markPriceDelivery: number;
-// markPricePerpetual: number;
-// fundingRate: number;
-// fundingTime: number;
-// daysLeft: number;
-// dailyRevenue: number;
-// yearlyRevenue: number;
+
+export const calculateDailyRevenue = (markPriceDelivery: number, markPricePerpetual: number): number => {
+  return ((markPriceDelivery/markPricePerpetual)-1);
+}
