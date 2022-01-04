@@ -49,16 +49,16 @@ type Props = {
 };
 
 const columns: Array<Column<DeliveryPerpetualPair>> = [
-  { title: "type", field: "type" },
-  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric" },
   { title: "pair", field: "pair" },
-  { title: "markPricePerpetual", field: "markPricePerpetual" },
-  { title: "daysLeft", field: "daysLeft" },
-  { title: "fundingRate", field: "fundingRate" },
-  { title: "fundingTime", field: "fundingTime" },
+  { title: "date", field: "date" },
   { title: "dailyRevenue", field: "dailyRevenue" },
   { title: "yearlyRevenue", field: "yearlyRevenue" },
   { title: "intradiary", field: "intradiary" },
+  { title: "fundingRate", field: "fundingRate" },
+  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric" },
+  { title: "markPricePerpetual", field: "markPricePerpetual" },
+  { title: "daysLeft", field: "daysLeft" },
+  // { title: "fundingTime", field: "fundingTime" },
 ];
 
 const options = {
@@ -72,6 +72,7 @@ export const TableFaker2 = ({ data }: Props) => {
   return (
     <Container>
       <MaterialTable
+        title="Binance COIN-M Websocket"
         columns={columns}
         data={data}
         icons={tableIcons}

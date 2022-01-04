@@ -66,42 +66,10 @@ export type FuturePair2 = {
     fundingRate: number;
     fundingTime: number;
   };
-// export type DeliveryPerpetualPair = {
-//     pair: string;
-//     type: string;
-//     data: {
-//         pair: string;
-//         type: string;
-//         markPriceDelivery: number;
-//         markPricePerpetual: number;
-//         fundingRate: number;
-//         fundingTime: number;
-//         daysLeft: number;
-//         dailyRevenue: number;
-//         yearlyRevenue: number;
-//     }
-// };
-
-// export const deliveryPerpetualPairs: DeliveryPerpetualPair[] = listPairs4.map((p) => {
-//     return {
-//       pair: p,
-//       type: '',
-//       data: {
-//         pair: p,
-//         type: '',
-//         markPriceDelivery: 0,
-//         markPricePerpetual: 0,
-//         fundingRate: 0,
-//         fundingTime: 0,
-//         daysLeft: 0,
-//         dailyRevenue: 0,
-//         yearlyRevenue: 0,
-//       }
-//     };
-//   });
 export type DeliveryPerpetualPair = {
         pair: string;
         type: string;
+        date: string;
         markPriceDelivery: number;
         markPricePerpetual: number;
         fundingRate: number;
@@ -115,7 +83,8 @@ export type DeliveryPerpetualPair = {
 export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
     return{
         pair: p.split('_')[0],
-        type: '',
+        type: p.split('_')[1], //get perp or deliv
+        date: p.split('_')[2], //get the delivery
         markPriceDelivery: 0,
         markPricePerpetual: 0,
         fundingRate: 0,
