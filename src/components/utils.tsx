@@ -65,7 +65,7 @@ export const truncateDecimals = (futurePairs2: DeliveryPerpetualPair): DeliveryP
 
       dailyRevenue: `${(futurePairs2.dailyRevenue*100).toFixed(2)}%`,  //Percentage 
       yearlyRevenue: `${(futurePairs2.yearlyRevenue *100).toFixed(2)}%`,//Percentage 
-      intradiary: `${(futurePairs2.intradiary *100).toFixed(2)}%`,//Percentage
+      intradiary: `${(futurePairs2.intradiary *100).toFixed(5)}%`,//Percentage
       fundingRate: `${(futurePairs2.fundingRate *100).toFixed(5)}%`,
       
       // dailyRevenue: Math.floor((futurePairs2.dailyRevenue *100)*1000)/1000,  //Percentage 
