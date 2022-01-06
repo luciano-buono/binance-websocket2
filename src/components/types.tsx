@@ -67,18 +67,31 @@ export type FuturePair2 = {
     fundingTime: number;
   };
 export type DeliveryPerpetualPair = {
-        pair: string;
-        type: string;
-        date: string;
-        markPriceDelivery: number;
-        markPricePerpetual: number;
-        fundingRate: number;
-        fundingTime: number;
-        daysLeft: number;
-        dailyRevenue: number;
-        yearlyRevenue: number;
-        intradiary: number;
+  pair: string;
+  type: string;
+  date: string;
+  markPriceDelivery: number;
+  markPricePerpetual: number;
+  fundingRate: number;
+  fundingTime: number;
+  daysLeft: number;
+  dailyRevenue: number;
+  yearlyRevenue: number;
+  intradiary: number;
+}
+export type DeliveryPerpetualPairTableData = {
+  pair: string;
+  type: string;
+  date: string;
+  markPriceDelivery: number;
+  markPricePerpetual: number;
+  fundingTime: number;
+  daysLeft: number;
 
+  fundingRate: string;
+  dailyRevenue: string;
+  yearlyRevenue: string;
+  intradiary: string;
 }
 export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
     return{

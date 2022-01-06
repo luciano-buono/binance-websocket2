@@ -1,4 +1,4 @@
-import { FuturePair, FuturePair2 } from "./types";
+import { DeliveryPerpetualPair, DeliveryPerpetualPairTableData, FuturePair, FuturePair2 } from "./types";
 
 export const objectToFuturePair = (websocketObj: any): FuturePair => {
   if (websocketObj === undefined || websocketObj === null) {
@@ -49,4 +49,29 @@ export const objectToFuturePair2 = (websocketObj: any): FuturePair2 => {
 
 export const calculateDailyRevenue = (markPriceDelivery: number, markPricePerpetual: number): number => {
   return ((markPriceDelivery/markPricePerpetual)-1);
+}
+
+export const truncateDecimals = (futurePairs2: DeliveryPerpetualPair): DeliveryPerpetualPairTableData => {
+  return(
+    {
+      // ...futurePairs2,
+      pair: futurePairs2.pair,
+      type: futurePairs2.type,
+      date: futurePairs2.date,
+      fundingTime: futurePairs2.fundingTime,
+      markPricePerpetual: Math.floor(futurePairs2.markPricePerpetual *100)/100,
+      markPriceDelivery: Math.floor(futurePairs2.markPriceDelivery *100)/100,
+      daysLeft: Math.floor(futurePairs2.daysLeft),
+
+      dailyRevenue: `${(futurePairs2.dailyRevenue*100).toFixed(2)}%`,  //Percentage 
+      yearlyRevenue: `${(futurePairs2.yearlyRevenue *100).toFixed(2)}%`,//Percentage 
+      intradiary: `${(futurePairs2.intradiary *100).toFixed(2)}%`,//Percentage
+      fundingRate: `${(futurePairs2.fundingRate *100).toFixed(5)}%`,
+      
+      // dailyRevenue: Math.floor((futurePairs2.dailyRevenue *100)*1000)/1000,  //Percentage 
+      // yearlyRevenue: Math.floor((futurePairs2.yearlyRevenue *100)*1000)/1000,//Percentage 
+      // intradiary: Math.floor((futurePairs2.intradiary *100)*100000)/100000,//Percentage
+      // fundingRate: Math.floor((futurePairs2.fundingRate *100)*100000)/100000,
+    }
+  )
 }

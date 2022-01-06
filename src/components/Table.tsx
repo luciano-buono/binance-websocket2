@@ -45,35 +45,35 @@ const tableIcons: Icons = {
 };
 
 type Props = {
-  data: FuturePair[];
+  data: Object[];
 };
 
-const columns: Array<Column<FuturePair>> = [
-  { title: "stream", field: "stream" },
-  { title: "eventTime", field: "eventTime" },
-  { title: "pair", field: "pair" },
-  { title: "markPrice", field: "markPrice" },
-  { title: "settlePrice", field: "settlePrice" },
-  { title: "fundingRate", field: "fundingRate" },
-  { title: "fundingTime", field: "fundingTime" }
+const columns: Array<Column<Object>> = [
+  { title: 'Adı', field: 'name' },
+  { title: 'Soyadı', field: 'surname' },
+  { title: 'Doğum Yılı', field: 'birthYear', type: 'numeric' },
+  { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
 ];
 
 const options = {
   paging: true,
-  pageSize: 10,
+  // pageSize: 20,
   emptyRowsWhenPaging: false,
-  pageSizeOptions: [10, 20, 50]
+  pageSizeOptions: [10, 20, 50],
+  exportButton: {
+    csv: true,
+    pdf: false
+  }, 
+  toolbar: true,        
 };
 
-export const TableFaker = ({ data }: Props) => {
+export const TableFaker = () => {
   return (
-    <Container>
       <MaterialTable
         columns={columns}
-        data={data}
-        icons={tableIcons}
+        data={[{ name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 }]}
+        // icons={tableIcons}
         options={options}
       />
-    </Container>
   );
 };

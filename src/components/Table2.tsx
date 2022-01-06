@@ -18,7 +18,7 @@ import {
   ViewColumn
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import { DeliveryPerpetualPair, FuturePair, FuturePairFull } from "./types";
+import { DeliveryPerpetualPair, DeliveryPerpetualPairTableData, FuturePair, FuturePairFull } from "./types";
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -45,32 +45,33 @@ const tableIcons: Icons = {
 };
 
 type Props = {
-  data: DeliveryPerpetualPair[];
+  data: DeliveryPerpetualPairTableData[];
 };
 
-const columns: Array<Column<DeliveryPerpetualPair>> = [
-  { title: "pair", field: "pair" },
-  { title: "date", field: "date" },
-  { title: "dailyRevenue", field: "dailyRevenue" },
-  { title: "yearlyRevenue", field: "yearlyRevenue" },
-  { title: "intradiary", field: "intradiary" },
-  { title: "fundingRate", field: "fundingRate" },
-  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric" },
-  { title: "markPricePerpetual", field: "markPricePerpetual" },
-  { title: "daysLeft", field: "daysLeft" },
-  // { title: "fundingTime", field: "fundingTime" },
+const columns: Array<Column<DeliveryPerpetualPairTableData>> = [
+  { title: "pair", field: "pair", align:"center" },
+  { title: "date", field: "date",align:"center" },
+  { title: "dailyRevenue", field: "dailyRevenue",align:"center" },
+  { title: "yearlyRevenue", field: "yearlyRevenue",align:"center" },
+  { title: "intradiary", field: "intradiary",align:"center" },
+  { title: "fundingRate", field: "fundingRate",align:"center" },
+  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric",align:"center" },
+  { title: "markPricePerpetual", field: "markPricePerpetual",align:"center" },
+  { title: "daysLeft", field: "daysLeft",align:"center" },
+  // { title: "fundingTime", field: "fundingTime",align:"center" },
 ];
 
 const options = {
   paging: true,
-  pageSize: 10,
+  pageSize: 20,
   emptyRowsWhenPaging: false,
-  pageSizeOptions: [10, 20, 50]
+  pageSizeOptions: [10, 20, 50],
+  exportButton: true,
 };
 
 export const TableFaker2 = ({ data }: Props) => {
   return (
-    <Container>
+    <Container maxWidth={false}>
       <MaterialTable
         title="Binance COIN-M Websocket"
         columns={columns}

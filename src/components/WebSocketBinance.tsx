@@ -14,7 +14,7 @@ import {
   futurePairsFull
 } from "./types";
 import { TableFaker } from "./Table";
-import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue } from "./utils";
+import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue, truncateDecimals } from "./utils";
 import { listPairs, WEBSOCKET_URL_COINM} from "../constants";
 import { TableFaker2 } from "./Table2";
 import moment from "moment";
@@ -47,33 +47,29 @@ export default function App() {
           : s
       )
     );
-      setStreamList2(
-        streamList2.map((s) =>
-        //s.pair=BTC|ETH|etc
-        //s.type= perp
-        //s.date = deliv
-        //lastFuturePair2.pair=BTC|ETH|etc
-        //lastFuturePair2.type=perp|delivery
-          s.pair === lastFuturePair2?.pair ?
-            lastFuturePair2?.type === 'PERP' ?
-              {...s,
-                // pair: lastFuturePair2.pair,
-                markPricePerpetual: lastFuturePair2.markPrice,
-                fundingRate: lastFuturePair2.fundingRate,
-                fundingTime: lastFuturePair2.fundingTime,
-              }
-            : s.date === lastFuturePair2?.type ?
-                {...s,
-                  markPriceDelivery: lastFuturePair2.markPrice,
-                  daysLeft: days,
-                  dailyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual) ,
-                  yearlyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)*365/days ,
-                  intradiary: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)/(days*3),
-                }
-              : s
-          : s
-        )
-      )
+    setStreamList2(
+      streamList2.map((s) => {
+        if (s.pair === lastFuturePair2?.pair){
+          if (lastFuturePair2?.type === 'PERP') {
+            return {...s,
+              markPricePerpetual: Math.floor(lastFuturePair2.markPrice *100)/100, //Math.floor(a * 100) / 100
+              fundingRate: lastFuturePair2.fundingRate,
+              fundingTime: lastFuturePair2.fundingTime,
+            }
+          }
+          if (s.date === lastFuturePair2?.type) {
+            return {...s,
+              markPriceDelivery: lastFuturePair2.markPrice,
+              daysLeft: days,
+              dailyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual) ,
+              yearlyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)*365/days ,
+              intradiary: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)/(days*3),
+            }
+          }
+        }
+        return s;
+      })
+    ); 
   },[lastJsonMessage]);
     
 
@@ -102,8 +98,7 @@ export default function App() {
 
   return (
     <div className="App">
-      {/* <TableFaker data={streamList.map((s) => s.data)} /> */}
-      <TableFaker2 data={streamList2.map((s) => s)} />
+      <TableFaker2 data={streamList2.map((s) => truncateDecimals(s))} />
       <br />
       <button
         style={{backgroundColor: "cyan" }}
