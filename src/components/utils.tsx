@@ -54,10 +54,7 @@ export const calculateDailyRevenue = (markPriceDelivery: number, markPricePerpet
 export const truncateDecimals = (futurePairs2: DeliveryPerpetualPair): DeliveryPerpetualPairTableData => {
   return(
     {
-      // ...futurePairs2,
-      pair: futurePairs2.pair,
-      type: futurePairs2.type,
-      date: futurePairs2.date,
+      ...futurePairs2,
       fundingTime: futurePairs2.fundingTime,
       markPricePerpetual: Math.floor(futurePairs2.markPricePerpetual *100)/100,
       markPriceDelivery: Math.floor(futurePairs2.markPriceDelivery *100)/100,

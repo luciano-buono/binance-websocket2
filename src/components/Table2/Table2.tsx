@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import MaterialTable, { Column, Icons } from "@material-table/core";
 import {
   AddBox,
@@ -18,7 +18,8 @@ import {
   ViewColumn
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import { DeliveryPerpetualPair, DeliveryPerpetualPairTableData, FuturePair, FuturePairFull } from "./types";
+import {DeliveryPerpetualPairTableData} from "../types";
+import { cellStyleIntradiary } from "./style";
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -53,14 +54,18 @@ const columns: Array<Column<DeliveryPerpetualPairTableData>> = [
   { title: "date", field: "date",align:"center" },
   { title: "dailyRevenue", field: "dailyRevenue",align:"center" },
   { title: "yearlyRevenue", field: "yearlyRevenue",align:"center" },
-  { title: "intradiary", field: "intradiary",align:"center" },
+  { title: "intradiary", field: "intradiary",align:"center", cellStyle: cellStyleIntradiary},
   { title: "fundingRate", field: "fundingRate",align:"center" },
   { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric",align:"center" },
   { title: "markPricePerpetual", field: "markPricePerpetual",align:"center" },
   { title: "daysLeft", field: "daysLeft",align:"center" },
   // { title: "fundingTime", field: "fundingTime",align:"center" },
 ];
-
+const style = {
+  padding: '8px',
+  backgroundColor: 'black',
+  color: 'white'
+}
 const options = {
   paging: true,
   pageSize: 20,
@@ -78,6 +83,7 @@ export const TableFaker2 = ({ data }: Props) => {
         data={data}
         icons={tableIcons}
         options={options}
+        style={style}
       />
     </Container>
   );

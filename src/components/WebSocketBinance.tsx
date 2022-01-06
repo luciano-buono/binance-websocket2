@@ -2,21 +2,17 @@ import React, {
   useState,
   useEffect,
   useCallback,
-  useMemo,
-  useRef
 } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import {
   DeliveryPerpetualPair,
-  FuturePair2,
   FuturePairFull,
   futurePairs2,
   futurePairsFull
 } from "./types";
-import { TableFaker } from "./Table";
 import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue, truncateDecimals } from "./utils";
 import { listPairs, WEBSOCKET_URL_COINM} from "../constants";
-import { TableFaker2 } from "./Table2";
+import { TableFaker2 } from "./Table2/Table2";
 import moment from "moment";
 
 export default function App() {
