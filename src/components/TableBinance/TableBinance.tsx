@@ -18,7 +18,7 @@ import {
   ViewColumn
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import {DeliveryPerpetualPairTableData} from "../types";
+import {DeliveryPerpetualPairTableData} from "../../utils/types";
 import { cellStyleIntradiary } from "./style";
 
 const tableIcons: Icons = {
@@ -74,7 +74,7 @@ const options = {
   exportButton: true,
 };
 
-export const TableFaker2 = ({ data }: Props) => {
+export const TableBinance = ({ data }: Props) => {
   return (
     <Container maxWidth={false}>
       <MaterialTable

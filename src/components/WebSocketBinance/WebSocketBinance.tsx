@@ -9,10 +9,10 @@ import {
   FuturePairFull,
   futurePairs2,
   futurePairsFull
-} from "./types";
-import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue, truncateDecimals } from "./utils";
-import { listPairs, WEBSOCKET_URL_COINM} from "../constants";
-import { TableFaker2 } from "./Table2/Table2";
+} from "../../utils/types";
+import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue, truncateDecimals } from "../../utils/utils";
+import { listPairs, WEBSOCKET_URL_COINM} from "../../constants";
+import { TableBinance } from "../TableBinance/TableBinance";
 import moment from "moment";
 
 export default function App() {
@@ -94,7 +94,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <TableFaker2 data={streamList2.map((s) => truncateDecimals(s))} />
+      <TableBinance data={streamList2.map((s) => truncateDecimals(s))} />
       <br />
       <button
         style={{backgroundColor: "cyan" }}

@@ -1,0 +1,22 @@
+$blue: #004BB4;
+$ubuntu-font: 'Ubuntu', 'Arial', 'Helvetica', sans-serif;
+$nunito-font: 'Nunito', 'Arial', 'Helvetica', sans-serif;
+
+h1 {
+    font: $ubuntu-font;
+    color: $blue;
+    background-color: black;
+}
+a {
+    font: $nunito-font;
+    background-color: $blue;
+    padding: 6px;
+}
+img {
+    max-width: 10%;
+    height: auto;
+    position: relative;
+}
+// div {
+//     background-color: burlywood;
+// }

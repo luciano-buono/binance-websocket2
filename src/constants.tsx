@@ -1,4 +1,4 @@
-import {FuturePair,FuturePairFull} from './components/types';
+import {FuturePair,FuturePairFull} from './utils/types';
 
 export const deliveryDate: string[] = ["220325", "220624"];
 export const WEBSOCKET_URL_SPOT = "wss://stream.binance.com:9443/stream";
