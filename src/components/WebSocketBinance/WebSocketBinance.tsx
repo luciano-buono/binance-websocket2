@@ -4,13 +4,8 @@ import React, {
   useCallback,
 } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import {
-  DeliveryPerpetualPair,
-  FuturePairFull,
-  futurePairs2,
-  futurePairsFull
-} from "../../utils/types";
-import { objectToFuturePair, objectToFuturePair2, calculateDailyRevenue, truncateDecimals } from "../../utils/utils";
+import {DeliveryPerpetualPair} from "../../utils/type-d";
+import { calculateDailyRevenue, truncateDecimals, objectToFuturePair3, futurePairs2 } from "../../utils/utils";
 import { listPairs, WEBSOCKET_URL_COINM} from "../../constants";
 import { TableBinance } from "../TableBinance/TableBinance";
 import moment from "moment";
@@ -21,51 +16,44 @@ export default function App() {
     socketUrl
   );
 
-  const [streamList, setStreamList] = useState<FuturePairFull[]>(
-    futurePairsFull
-  );
-  const [streamList2, setStreamList2] = useState<DeliveryPerpetualPair[]>(
+  const [streamList3, setStreamList3] = useState<DeliveryPerpetualPair[]>(
     futurePairs2
   );
-
+  
+  
   useEffect(() => {
-    const lastFuturePair = objectToFuturePair(lastJsonMessage);
-    const lastFuturePair2 = objectToFuturePair2(lastJsonMessage);
+    const lastFuturePair3 = objectToFuturePair3(lastJsonMessage);
     var now = moment(new Date()); //todays date
-    var end = moment(lastFuturePair2.type, "YYMMDD");
+    var end = moment(lastFuturePair3.date, "YYMMDD");
     var duration = moment.duration(end.diff(now));
     var days = duration.asDays();
 
-    setStreamList(
-      streamList.map((s) =>
-        s.pair === lastFuturePair?.pair
-          ? { pair: lastFuturePair?.pair, data: lastFuturePair }
-          : s
-      )
-    );
-    setStreamList2(
-      streamList2.map((s) => {
-        if (s.pair === lastFuturePair2?.pair){
-          if (lastFuturePair2?.type === 'PERP') {
-            return {...s,
-              markPricePerpetual: Math.floor(lastFuturePair2.markPrice *100)/100, //Math.floor(a * 100) / 100
-              fundingRate: lastFuturePair2.fundingRate,
-              fundingTime: lastFuturePair2.fundingTime,
-            }
-          }
-          if (s.date === lastFuturePair2?.type) {
-            return {...s,
-              markPriceDelivery: lastFuturePair2.markPrice,
-              daysLeft: days,
-              dailyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual) ,
-              yearlyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)*365/days ,
-              intradiary: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)/(days*3),
+    setStreamList3(
+      streamList3.map((s) => {
+        if (s.pair === lastFuturePair3?.pair){
+          if(lastFuturePair3.type === 'PERP'){
+            return {
+              ...s,
+              markPricePerpetual: lastFuturePair3.markPricePerpetual,
+              fundingRate: lastFuturePair3.fundingRate,
+              fundingTime: lastFuturePair3.fundingTime,
+            };
+          }else{
+            if (s.date === lastFuturePair3?.date) {
+              return{
+                ...s,
+                markPriceDelivery: lastFuturePair3.markPriceDelivery,
+                daysLeft: days,
+                dailyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual) ,
+                yearlyRevenue: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)*365/days ,
+                intradiary: calculateDailyRevenue(s.markPriceDelivery,s.markPricePerpetual)/(days*3),
+              }
             }
           }
         }
         return s;
       })
-    ); 
+    )
   },[lastJsonMessage]);
     
 
@@ -94,7 +82,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <TableBinance data={streamList2.map((s) => truncateDecimals(s))} />
+      <TableBinance data={streamList3.map((s) => truncateDecimals(s))} />
       <br />
       <button
         style={{backgroundColor: "cyan" }}
