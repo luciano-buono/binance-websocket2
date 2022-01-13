@@ -11,13 +11,16 @@ export interface DeliveryPerpetualPair{
   yearlyRevenue: number;
   intradiary: number;
 };
+export interface Pair extends DeliveryPerpetualPair{
+  id: number;
+}
 export type PairState = {
-  pairs: DeliveryPerpetualPair[];
+  pairs: Pair[];
 }
 
 export type PairAction = {
   type: string;
-  pair: DeliveryPerpetualPair;
+  pair: Pair;
 }
 
 export type DispatchType = (args: PairAction) => PairAction;

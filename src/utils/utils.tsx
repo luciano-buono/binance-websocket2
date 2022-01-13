@@ -1,8 +1,9 @@
 import { listPairs4 } from "../constants";
-import { DeliveryPerpetualPair } from "./type-d";
+import { DeliveryPerpetualPair, Pair } from "./type-d";
 
-export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
+export const futurePairs2: Pair[] = listPairs4.map((p, i) => {
   return {
+    id: i,
     pair: p.split("_")[0],
     type: p.split("_")[1], //get perp or deliv
     date: p.split("_")[2], //get the delivery

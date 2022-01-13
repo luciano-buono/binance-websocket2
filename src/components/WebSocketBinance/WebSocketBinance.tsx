@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Dispatch } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { DeliveryPerpetualPair } from "../../utils/type-d";
+import { DeliveryPerpetualPair, Pair } from "../../utils/type-d";
 import {
   calculateDailyRevenue,
   truncateDecimals,
@@ -10,8 +10,16 @@ import {
 import { listPairs, WEBSOCKET_URL_COINM } from "../../constants";
 import { TableBinance } from "../TableBinance/TableBinance";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { addPair } from "../../store/actionCreators";
+
 
 export default function App() {
+  //
+  const dispatch: Dispatch<any> = useDispatch();
+  const savePair = (pair: Pair) => dispatch(addPair(pair))
+  //
+
   const socketUrl = WEBSOCKET_URL_COINM;
   const { sendJsonMessage, lastJsonMessage, readyState } =
     useWebSocket(socketUrl);

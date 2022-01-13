@@ -1,58 +1,53 @@
-import { DeliveryPerpetualPair, PairAction, PairState } from '../utils/type-d';
-import * as actionTypes from './actionTypes';
+import {
+  DeliveryPerpetualPair,
+  Pair,
+  PairAction,
+  PairState,
+} from "../utils/type-d";
+import { futurePairs2 } from "../utils/utils";
+import * as actionTypes from "./actionTypes";
 
 const initalState: PairState = {
-    pairs: [
-        {
-            pair: "To define",
-            type: "",
-            date: "",
-            markPriceDelivery: 0,
-            markPricePerpetual: 0,
-            fundingRate: 0,
-            fundingTime: 0,
-            daysLeft: 0,
-            dailyRevenue: 0,
-            yearlyRevenue: 0,
-            intradiary: 0,
-        },
-        {
-            pair: "To define",
-            type: "",
-            date: "",
-            markPriceDelivery: 0,
-            markPricePerpetual: 0,
-            fundingRate: 0,
-            fundingTime: 0,
-            daysLeft: 0,
-            dailyRevenue: 0,
-            yearlyRevenue: 0,
-            intradiary: 0,
-        },
-    ]
-}
-const reducer = (state: PairState = initalState, action: PairAction): PairState =>{
-    switch(action.type){
-        case actionTypes.ADD_PAIR:
-            const newArticle : DeliveryPerpetualPair= {
-                id: Math.random(),
-                title: action.article.title,
-                body: action.article.body,
-            }
-            return{
-                ...state,
-                articles: state.articles.concat(newArticle),
-            }
-        case actionTypes.REMOVE_ARTICLE:
-            const updateArticles: IArticle[] = state.articles.filter(
-                article => article.id !== action.article.id
-            )
-            return {
-                ...state,
-                articles: updateArticles,
-            }
-        default:
-            return state
-    }
-}
+  pairs: futurePairs2,
+};
+const reducer = (
+  state: PairState = initalState,
+  action: PairAction
+): PairState => {
+  switch (action.type) {
+    case actionTypes.ADD_PAIR:
+      const newPair: Pair = {
+        id: action.pair.id,
+        pair: action.pair.pair,
+        type: action.pair.type,
+        date: action.pair.date,
+        markPriceDelivery: action.pair.markPriceDelivery,
+        markPricePerpetual: action.pair.markPricePerpetual,
+        fundingRate: action.pair.fundingRate,
+        fundingTime: action.pair.fundingTime,
+        daysLeft: action.pair.daysLeft,
+        dailyRevenue: action.pair.dailyRevenue,
+        yearlyRevenue: action.pair.yearlyRevenue,
+        intradiary: action.pair.intradiary,
+      };
+      return {
+        ...state,
+        pairs: state.pairs.concat(newPair),
+      };
+    case actionTypes.UPDATE_PAIR:
+        const updatedPair: Pair[] = state.pairs.map((s) => {
+          if (s.id === action.pair.id){
+            return{...action.pair}
+          }
+          return (s)
+        })
+
+        return {
+          ...state,
+          pairs: updatedPair,
+        };
+    default:
+      return state;
+  }
+};
 export default reducer;

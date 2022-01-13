@@ -8,11 +8,14 @@ import { createStore, applyMiddleware, Store } from "redux"
 import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import reducer from "./store/reducer"
+import { DispatchType, PairAction, PairState } from "./utils/type-d";
+
+const store: Store<PairState, PairAction> & {dispatch: DispatchType} = createStore(reducer,applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 
