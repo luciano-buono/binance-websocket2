@@ -1,14 +1,4 @@
-export type FuturePair2 = {
-  stream: string;
-  eventTime: number;
-  pair: string;
-  type: string;
-  markPrice: number;
-  settlePrice: number;
-  fundingRate: number;
-  fundingTime: number;
-};
-export type DeliveryPerpetualPair = {
+export interface DeliveryPerpetualPair{
   pair: string;
   type: string;
   date: string;
@@ -21,3 +11,13 @@ export type DeliveryPerpetualPair = {
   yearlyRevenue: number;
   intradiary: number;
 };
+export type PairState = {
+  pairs: DeliveryPerpetualPair[];
+}
+
+export type PairAction = {
+  type: string;
+  pair: DeliveryPerpetualPair;
+}
+
+export type DispatchType = (args: PairAction) => PairAction;
