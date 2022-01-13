@@ -18,7 +18,7 @@ import {
   ViewColumn
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import {DeliveryPerpetualPairTableData} from "../../utils/types";
+import {DeliveryPerpetualPairTableData} from "../../utils/type-d";
 import { cellStyleIntradiary, styleBinanceTable } from "./style";
 
 const tableIcons: Icons = {

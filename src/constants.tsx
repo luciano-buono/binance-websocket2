@@ -1,5 +1,3 @@
-import {FuturePair,FuturePairFull} from './utils/types';
-
 export const deliveryDate: string[] = ["220325", "220624"];
 export const WEBSOCKET_URL_SPOT = "wss://stream.binance.com:9443/stream";
 export const WEBSOCKET_URL_COINM = "wss://dstream.binance.com/ws/ethusd_220325";
@@ -35,45 +33,7 @@ export const listPairs: string[] = [
   `bchusd_${deliveryDate[1]}@markPrice`,
   `dotusd_${deliveryDate[1]}@markPrice`,
   ];
-export const listPairs3: string[] = [
-    "ETHUSD_220325",
-    "ETHUSD_PERP",
-    "BTCUSD_220325",
-    "BTCUSD_PERP",
-    "ADAUSD_220325",
-    "ADAUSD_PERP",
-    "BNBUSD_220325",
-    "BNBUSD_PERP",
-    "LTCUSD_220325",
-    "LTCUSD_PERP",
-    "XRPUSD_220325",
-    "XRPUSD_PERP",
-    "LINKUSD_220325",
-    "LINKUSD_PERP",
-    "BCHUSD_220325",
-    "BCHUSD_PERP",
-    "DOTUSD_220325",
-    "DOTUSD_PERP",
 
-    "ETHUSD_220624",
-    "ETHUSD_PERP",
-    "BTCUSD_220624",
-    "BTCUSD_PERP",
-    "ADAUSD_220624",
-    "ADAUSD_PERP",
-    "BNBUSD_220624",
-    "BNBUSD_PERP",
-    "LTCUSD_220624",
-    "LTCUSD_PERP",
-    "XRPUSD_220624",
-    "XRPUSD_PERP",
-    "LINKUSD_220624",
-    "LINKUSD_PERP",
-    "BCHUSD_220624",
-    "BCHUSD_PERP",
-    "DOTUSD_220624",
-    "DOTUSD_PERP",
-  ];
 export const listPairs4: string[] = [
     `ETHUSD_PERP_${deliveryDate[0]}`,
     `BTCUSD_PERP_${deliveryDate[0]}`,

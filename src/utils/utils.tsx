@@ -1,51 +1,72 @@
-import { DeliveryPerpetualPair, DeliveryPerpetualPairTableData, FuturePair, FuturePair2 } from "./types";
+import { listPairs4 } from "../constants";
+import { DeliveryPerpetualPair, DeliveryPerpetualPairTableData, FuturePair2 } from "./type-d";
 
-export const objectToFuturePair = (websocketObj: any): FuturePair => {
-  if (websocketObj === undefined || websocketObj === null) {
-    return {
-      stream: "To define",
-      eventTime: 0,
-      pair: "To define",
-      markPrice: 0,
-      settlePrice: 0,
+export const futurePairs2: DeliveryPerpetualPair[] = listPairs4.map((p) => {
+  return{
+      pair: p.split('_')[0],
+      type: p.split('_')[1], //get perp or deliv
+      date: p.split('_')[2], //get the delivery
+      markPriceDelivery: 0,
+      markPricePerpetual: 0,
       fundingRate: 0,
       fundingTime: 0,
-    };
-  }
-  return {
-    stream: websocketObj.e,// Event type
-    eventTime: websocketObj.E,// Event time
-    pair: websocketObj.s,// Symbol
-    markPrice: websocketObj.p,// Mark Price
-    settlePrice: websocketObj.P,// Estimated Settle Price, only useful in the last hour before the settlement starts.
-    fundingRate: websocketObj.r,// funding rate for perpetual symbol, "" will be shown for delivery symbol
-    fundingTime: websocketObj.T// next funding time for perpetual symbol, 0 will be shown for delivery symbol
+      daysLeft: 0,
+      dailyRevenue: 0,
+      yearlyRevenue: 0,
+      intradiary: 0,
   };
-};
-export const objectToFuturePair2 = (websocketObj: any): FuturePair2 => {
+});
+
+export const objectToFuturePair3 = (websocketObj: any): DeliveryPerpetualPair => {
   if (websocketObj === undefined || websocketObj === null) {
     return {
-      stream: "To define",
-      eventTime: 0,
       pair: "To define",
       type: '',
-      markPrice: 0,
-      settlePrice: 0,
+      date: '',
+      markPriceDelivery: 0,
+      markPricePerpetual: 0,
       fundingRate: 0,
       fundingTime: 0,
+      daysLeft: 0,
+      dailyRevenue: 0,
+      yearlyRevenue: 0,
+      intradiary: 0,
     };
   }
+  let type:string;
+  let date:string;
+  let markPricePerpetual: number;
+  let markPriceDelivery: number;
+  const websocketType:string = websocketObj.s?.split('_')[1];
+  if (websocketType === 'PERP'){
+    type = websocketType;
+    date = '';
+    markPricePerpetual = websocketObj.p;
+    markPriceDelivery = 0;
+  }else{
+    type = 'delivery';
+    date= websocketType;
+    markPriceDelivery = websocketObj.p;
+    markPricePerpetual = 0;
+  }
   return {
-    stream: websocketObj.e,// Event type
-    eventTime: websocketObj.E,// Event time
     pair: websocketObj.s?.split('_')[0],// Symbol
-    type: websocketObj.s?.split('_')[1], //PERP or devileryDate
-    markPrice: websocketObj.p,// Mark Price
-    settlePrice: websocketObj.P,// Estimated Settle Price, only useful in the last hour before the settlement starts.
+    type: type , //PERP or devileryDate
+    date: date,
+    markPriceDelivery: markPriceDelivery,
+    markPricePerpetual: markPricePerpetual,
     fundingRate: websocketObj.r,// funding rate for perpetual symbol, "" will be shown for delivery symbol
-    fundingTime: websocketObj.T// next funding time for perpetual symbol, 0 will be shown for delivery symbol
+    fundingTime: websocketObj.T,// next funding time for perpetual symbol, 0 will be shown for delivery symbol
+    daysLeft: 0,
+    dailyRevenue: 0,
+    yearlyRevenue: 0,
+    intradiary: 0,
   };
 };
+
+
+
+
 
 export const calculateDailyRevenue = (markPriceDelivery: number, markPricePerpetual: number): number => {
   return ((markPriceDelivery/markPricePerpetual)-1);
