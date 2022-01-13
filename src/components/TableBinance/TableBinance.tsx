@@ -19,7 +19,7 @@ import {
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
 import {DeliveryPerpetualPairTableData} from "../../utils/types";
-import { cellStyleIntradiary } from "./style";
+import { cellStyleIntradiary, styleBinanceTable } from "./style";
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -61,11 +61,7 @@ const columns: Array<Column<DeliveryPerpetualPairTableData>> = [
   { title: "daysLeft", field: "daysLeft",align:"center" },
   // { title: "fundingTime", field: "fundingTime",align:"center" },
 ];
-const style = {
-  padding: '8px',
-  backgroundColor: 'black',
-  color: 'white'
-}
+
 const options = {
   paging: true,
   pageSize: 20,
@@ -83,7 +79,7 @@ export const TableBinance = ({ data }: Props) => {
         data={data}
         icons={tableIcons}
         options={options}
-        style={style}
+        style={styleBinanceTable}
       />
     </Container>
   );
