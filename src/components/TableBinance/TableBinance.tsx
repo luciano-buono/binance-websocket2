@@ -18,7 +18,7 @@ import {
   ViewColumn,
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import { DeliveryPerpetualPair } from "../../utils/type-d";
+import { Pair } from "../../utils/type-d";
 import { cellStyleIntradiary } from "./style";
 
 const tableIcons: Icons = {
@@ -46,10 +46,10 @@ const tableIcons: Icons = {
 };
 
 type Props = {
-  data: DeliveryPerpetualPair[];
+  data: Pair[];
 };
 
-const columns: Array<Column<DeliveryPerpetualPair>> = [
+const columns: Array<Column<Pair>> = [
   { title: "pair", field: "pair", align: "center" },
   { title: "date", field: "date", align: "center" },
   { title: "dailyRevenue_%", field: "dailyRevenue", align: "center" },

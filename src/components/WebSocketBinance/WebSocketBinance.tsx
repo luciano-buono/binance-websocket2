@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, Dispatch } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { DeliveryPerpetualPair, Pair } from "../../utils/type-d";
+import {Pair } from "../../utils/type-d";
 import {
   calculateDailyRevenue,
   truncateDecimals,
@@ -11,69 +11,71 @@ import { listPairs, WEBSOCKET_URL_COINM } from "../../constants";
 import { TableBinance } from "../TableBinance/TableBinance";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { addPair } from "../../store/actionCreators";
+import { addPair, editPair } from "../../store/actionCreators";
 
 
 export default function App() {
-  //
+
   const dispatch: Dispatch<any> = useDispatch();
   const savePair = (pair: Pair) => dispatch(addPair(pair))
-  //
+  const updatePair = (pair: Pair) => dispatch(editPair(pair))
 
   const socketUrl = WEBSOCKET_URL_COINM;
   const { sendJsonMessage, lastJsonMessage, readyState } =
     useWebSocket(socketUrl);
 
   const [streamList3, setStreamList3] =
-    useState<DeliveryPerpetualPair[]>(futurePairs2);
+    useState<Pair[]>(futurePairs2);
 
   useEffect(() => {
     const lastFuturePair3 = objectToFuturePair3(lastJsonMessage);
-    var now = moment(new Date()); //todays date
-    var end = moment(lastFuturePair3.date, "YYMMDD");
-    var duration = moment.duration(end.diff(now));
-    var days = duration.asDays();
+    updatePair(lastFuturePair3);
 
-    setStreamList3(
-      streamList3.map((s) => {
-        if (s.pair === lastFuturePair3?.pair) {
-          if (lastFuturePair3.type === "PERP") {
-            return {
-              ...s,
-              markPricePerpetual: lastFuturePair3.markPricePerpetual,
-              fundingRate: lastFuturePair3.fundingRate,
-              fundingTime: lastFuturePair3.fundingTime,
-            };
-          } else {
-            if (s.date === lastFuturePair3?.date) {
-              return {
-                ...s,
-                markPriceDelivery: lastFuturePair3.markPriceDelivery,
-                daysLeft: days,
-                dailyRevenue: calculateDailyRevenue(
-                  s.markPriceDelivery,
-                  s.markPricePerpetual
-                ),
-                yearlyRevenue:
-                  (calculateDailyRevenue(
-                    s.markPriceDelivery,
-                    s.markPricePerpetual
-                  ) *
-                    365) /
-                  days,
-                intradiary:
-                  calculateDailyRevenue(
-                    s.markPriceDelivery,
-                    s.markPricePerpetual
-                  ) /
-                  (days * 3),
-              };
-            }
-          }
-        }
-        return s;
-      })
-    );
+    // var now = moment(new Date()); //todays date
+    // var end = moment(lastFuturePair3.date, "YYMMDD");
+    // var duration = moment.duration(end.diff(now));
+    // var days = duration.asDays();
+
+    // setStreamList3(
+    //   streamList3.map((s) => {
+    //     if (s.pair === lastFuturePair3?.pair) {
+    //       if (lastFuturePair3.type === "PERP") {
+    //         return {
+    //           ...s,
+    //           markPricePerpetual: lastFuturePair3.markPricePerpetual,
+    //           fundingRate: lastFuturePair3.fundingRate,
+    //           fundingTime: lastFuturePair3.fundingTime,
+    //         };
+    //       } else {
+    //         if (s.date === lastFuturePair3?.date) {
+    //           return {
+    //             ...s,
+    //             markPriceDelivery: lastFuturePair3.markPriceDelivery,
+    //             daysLeft: days,
+    //             dailyRevenue: calculateDailyRevenue(
+    //               s.markPriceDelivery,
+    //               s.markPricePerpetual
+    //             ),
+    //             yearlyRevenue:
+    //               (calculateDailyRevenue(
+    //                 s.markPriceDelivery,
+    //                 s.markPricePerpetual
+    //               ) *
+    //                 365) /
+    //               days,
+    //             intradiary:
+    //               calculateDailyRevenue(
+    //                 s.markPriceDelivery,
+    //                 s.markPricePerpetual
+    //               ) /
+    //               (days * 3),
+    //           };
+    //         }
+    //       }
+    //     }
+    //     return s;
+    //   })
+    // );
   }, [lastJsonMessage]);
 
   const handleClickMessage = useCallback(() => {
@@ -101,7 +103,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <TableBinance data={streamList3.map((s) => truncateDecimals(s))} />
+      {/* <TableBinance data={streamList3.map((s) => truncateDecimals(s))} /> */}
       <br />
       <button
         style={{ backgroundColor: "cyan" }}

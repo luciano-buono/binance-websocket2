@@ -1,4 +1,4 @@
-import { DeliveryPerpetualPair, DispatchType, Pair, PairAction } from '../utils/type-d';
+import { Pair, DispatchType, PairAction } from '../utils/type-d';
 import * as actionTypes from './actionTypes'
 
 export const addPair = (pair: Pair) => {
@@ -8,7 +8,7 @@ export const addPair = (pair: Pair) => {
   }
   return (dispatch: DispatchType) =>(dispatch(action));
 }
-export const updatePair = (pair: Pair) => {
+export const editPair = (pair: Pair) => {
   const action: PairAction = {
     type: actionTypes.UPDATE_PAIR,
     pair,

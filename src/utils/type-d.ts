@@ -1,4 +1,4 @@
-export interface DeliveryPerpetualPair{
+export interface Pair{
   pair: string;
   type: string;
   date: string;
@@ -11,9 +11,6 @@ export interface DeliveryPerpetualPair{
   yearlyRevenue: number;
   intradiary: number;
 };
-export interface Pair extends DeliveryPerpetualPair{
-  id: number;
-}
 export type PairState = {
   pairs: Pair[];
 }

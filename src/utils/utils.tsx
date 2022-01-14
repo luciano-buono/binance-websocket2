@@ -1,7 +1,12 @@
+import moment from "moment";
 import { listPairs4 } from "../constants";
-import { DeliveryPerpetualPair, Pair } from "./type-d";
+import {Pair } from "./type-d";
 
 export const futurePairs2: Pair[] = listPairs4.map((p, i) => {
+  var now = moment(new Date()); //todays date
+  var end = moment(p.split("_")[2], "YYMMDD");
+  var duration = moment.duration(end.diff(now));
+  var days = duration.asDays();
   return {
     id: i,
     pair: p.split("_")[0],
@@ -11,7 +16,7 @@ export const futurePairs2: Pair[] = listPairs4.map((p, i) => {
     markPricePerpetual: 0,
     fundingRate: 0,
     fundingTime: 0,
-    daysLeft: 0,
+    daysLeft: days,
     dailyRevenue: 0,
     yearlyRevenue: 0,
     intradiary: 0,
@@ -20,7 +25,7 @@ export const futurePairs2: Pair[] = listPairs4.map((p, i) => {
 
 export const objectToFuturePair3 = (
   websocketObj: any
-): DeliveryPerpetualPair => {
+): Pair => {
   if (websocketObj === undefined || websocketObj === null) {
     return {
       pair: "To define",
@@ -75,8 +80,8 @@ export const calculateDailyRevenue = (
 };
 
 export const truncateDecimals = (
-  futurePairs2: DeliveryPerpetualPair
-): DeliveryPerpetualPair => {
+  futurePairs2: Pair
+): Pair => {
   return {
     ...futurePairs2,
     fundingTime: futurePairs2.fundingTime,

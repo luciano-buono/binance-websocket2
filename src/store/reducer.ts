@@ -1,10 +1,9 @@
 import {
-  DeliveryPerpetualPair,
   Pair,
   PairAction,
   PairState,
 } from "../utils/type-d";
-import { futurePairs2 } from "../utils/utils";
+import { calculateDailyRevenue, futurePairs2 } from "../utils/utils";
 import * as actionTypes from "./actionTypes";
 
 const initalState: PairState = {
@@ -16,32 +15,43 @@ const reducer = (
 ): PairState => {
   switch (action.type) {
     case actionTypes.ADD_PAIR:
-      const newPair: Pair = {
-        id: action.pair.id,
-        pair: action.pair.pair,
-        type: action.pair.type,
-        date: action.pair.date,
-        markPriceDelivery: action.pair.markPriceDelivery,
-        markPricePerpetual: action.pair.markPricePerpetual,
-        fundingRate: action.pair.fundingRate,
-        fundingTime: action.pair.fundingTime,
-        daysLeft: action.pair.daysLeft,
-        dailyRevenue: action.pair.dailyRevenue,
-        yearlyRevenue: action.pair.yearlyRevenue,
-        intradiary: action.pair.intradiary,
-      };
       return {
         ...state,
-        pairs: state.pairs.concat(newPair),
+        pairs: state.pairs.concat(action.pair),
       };
     case actionTypes.UPDATE_PAIR:
         const updatedPair: Pair[] = state.pairs.map((s) => {
-          if (s.id === action.pair.id){
-            return{...action.pair}
+          if(s.pair === action.pair.pair){
+            if(action.pair.type === 'PERP'){
+              return{
+                ...s,
+                markPricePerpetual: action.pair.markPricePerpetual,
+                fundingRate: action.pair.fundingRate,
+                fundingTime: action.pair.fundingTime,
+              }
+            }
+            if(action.pair.date === s.date){
+              return{
+                ...s,
+                markPriceDelivery: action.pair.markPriceDelivery,
+                dailyRevenue: calculateDailyRevenue(
+                  s.markPriceDelivery,
+                  s.markPricePerpetual),
+                yearlyRevenue:
+                  (calculateDailyRevenue(
+                    s.markPriceDelivery,
+                    s.markPricePerpetual
+                  ) *365) /s.daysLeft,
+                intradiary:
+                  calculateDailyRevenue(
+                    s.markPriceDelivery,
+                    s.markPricePerpetual
+                  ) / (s.daysLeft * 3),
+              }
+            }
           }
-          return (s)
+          return(s)
         })
-
         return {
           ...state,
           pairs: updatedPair,
