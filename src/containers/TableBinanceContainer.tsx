@@ -11,9 +11,6 @@ export const TableBinanceContainer= () => {
     (state: PairState) => state.pairs,
     shallowEqual
   )
-  const temp:Pair[] = [
-
-  ]
   return(
     <TableBinance data={pairs.map((s: Pair) => truncateDecimals(s))} />
   )
