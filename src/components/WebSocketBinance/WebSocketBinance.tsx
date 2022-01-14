@@ -4,18 +4,18 @@ import { Pair } from "../../utils/type-d";
 import {objectToFuturePair3,} from "../../utils/utils";
 import { listPairs, WEBSOCKET_URL_COINM } from "../../constants";
 import { useDispatch } from "react-redux";
-import { addPair, editPair } from "../../store/actionCreators";
+import { editPair } from "../../store/actionCreators";
 
 export default function App() {
   const dispatch: Dispatch<any> = useDispatch();
-  const savePair = (pair: Pair) => dispatch(addPair(pair));
-  const updatePair = (pair: Pair) => dispatch(editPair(pair));
 
   const socketUrl = WEBSOCKET_URL_COINM;
   const { sendJsonMessage, lastJsonMessage, readyState } =
     useWebSocket(socketUrl);
 
   useEffect(() => {
+    const updatePair = (pair: Pair) => dispatch(editPair(pair));
+
     const lastFuturePair3 = objectToFuturePair3(lastJsonMessage);
     updatePair(lastFuturePair3);
   }, [lastJsonMessage]);
