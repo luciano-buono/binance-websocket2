@@ -15,10 +15,10 @@ import {
   Remove,
   SaveAlt,
   Search,
-  ViewColumn
+  ViewColumn,
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
-import {DeliveryPerpetualPairTableData} from "../../utils/type-d";
+import { Pair } from "../../utils/type-d";
 import { cellStyleIntradiary, styleBinanceTable } from "./style";
 
 const tableIcons: Icons = {
@@ -42,26 +42,35 @@ const tableIcons: Icons = {
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
 type Props = {
-  data: DeliveryPerpetualPairTableData[];
+  data: Pair[];
 };
 
-const columns: Array<Column<DeliveryPerpetualPairTableData>> = [
-  { title: "pair", field: "pair", align:"center" },
-  { title: "date", field: "date",align:"center" },
-  { title: "dailyRevenue", field: "dailyRevenue",align:"center" },
-  { title: "yearlyRevenue", field: "yearlyRevenue",align:"center" },
-  { title: "intradiary", field: "intradiary",align:"center", cellStyle: cellStyleIntradiary},
-  { title: "fundingRate", field: "fundingRate",align:"center" },
-  { title: "markPriceDelivery", field: "markPriceDelivery",type: "numeric",align:"center" },
-  { title: "markPricePerpetual", field: "markPricePerpetual",align:"center" },
-  { title: "daysLeft", field: "daysLeft",align:"center" },
+const columns: Array<Column<Pair>> = [
+  { title: "pair", field: "pair", align: "center" },
+  { title: "date", field: "date", align: "center" },
+  { title: "dailyRevenue_%", field: "dailyRevenue", align: "center" },
+  { title: "yearlyRevenue_%", field: "yearlyRevenue", align: "center" },
+  {
+    title: "intradiary_%",
+    field: "intradiary",
+    align: "center",
+    cellStyle: cellStyleIntradiary,
+  },
+  { title: "fundingRate_%", field: "fundingRate", align: "center" },
+  {
+    title: "markPriceDelivery",
+    field: "markPriceDelivery",
+    type: "numeric",
+    align: "center",
+  },
+  { title: "markPricePerpetual", field: "markPricePerpetual", align: "center" },
+  { title: "daysLeft", field: "daysLeft", align: "center" },
   // { title: "fundingTime", field: "fundingTime",align:"center" },
 ];
-
 const options = {
   paging: true,
   pageSize: 20,
