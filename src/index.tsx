@@ -11,11 +11,15 @@ import reducer from "./store/reducer"
 import { DispatchType, PairAction, PairState } from "./utils/type-d";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { BrowserRouter as Router} from "react-router-dom";
+
 const store: Store<PairState, PairAction> & {dispatch: DispatchType} = createStore(reducer,composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
