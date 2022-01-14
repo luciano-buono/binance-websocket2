@@ -5,7 +5,7 @@ import './Header.scss'
 export const Header =() =>{
   return (
     <div>
-      <img src={header}/>   
+      <img src={header} alt='Nasini'/>   
       {/* <h1>Nasini</h1> */}
     </div>
   )

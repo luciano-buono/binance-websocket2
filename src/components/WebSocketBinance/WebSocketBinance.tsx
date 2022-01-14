@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useCallback, Dispatch } from "react";
+import {useEffect, useCallback, Dispatch } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { Pair } from "../../utils/type-d";
-import {
-  calculateDailyRevenue,
-  truncateDecimals,
-  objectToFuturePair3,
-  futurePairs2,
-} from "../../utils/utils";
+import {objectToFuturePair3,} from "../../utils/utils";
 import { listPairs, WEBSOCKET_URL_COINM } from "../../constants";
-import { TableBinance } from "../TableBinance/TableBinance";
-import moment from "moment";
 import { useDispatch } from "react-redux";
 import { addPair, editPair } from "../../store/actionCreators";
 
