@@ -19,7 +19,7 @@ import {
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
 import { Pair } from "../../utils/type-d";
-import { cellStyleIntradiary, styleBinanceTable } from "./style";
+import { cellStyleIntradiary, searchStyle, styleBinanceTable } from "./style";
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -77,6 +77,7 @@ const options = {
   emptyRowsWhenPaging: false,
   pageSizeOptions: [10, 20, 50],
   exportButton: true,
+  searchFieldStyle: searchStyle,
 };
 
 export const TableBinance = ({ data }: Props) => {

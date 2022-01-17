@@ -10,3 +10,7 @@ export const styleBinanceTable = {
     backgroundColor: '#272424',
     color: 'white'
   }
+export const searchStyle = {
+    color: "white",
+    backgroundColor: "gray"
+}
