@@ -7,6 +7,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import { About } from './components/About/About';
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path={'/'} element={<><WebSocketBinance/><TableBinanceContainer/></>}/>
+        <Route path={'/about'} element={<About/>}/>
       </Routes>
     </div>
   );
